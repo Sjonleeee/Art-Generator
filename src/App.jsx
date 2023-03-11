@@ -1,77 +1,59 @@
-import { useState } from "react";
 import "./App.css";
-import Slider from "./components/Slider";
+import { useState } from "react";
 import Drawing from "./components/Drawing.jsx";
+import ColorPalette from "./components/Color.jsx";
+import Slider from "./components/Slider";
 
-function App() {
-  const [style, setStyle] = useState({
-    radius: 10,
-    red: 10,
-    green: 100,
-    blue: 150,
-    x: 50,
-    y: 50,
-  });
+const generateItem = () => ({
+  y: Math.random() * 50,
+  radius: 5,
+  color: "#000000",
+});
+const defaultList = new Array(5).fill().map(() => generateItem());
 
-  const handleRadiusChange = (radius) => {
-    // Shorthand property names
-    setStyle({ ...style, radius });
+export default function App() {
+  const [radius, setRadius] = useState(100);
+  const [items, setItems] = useState(defaultList);
+  const [color, setColor] = useState("#000000"); 
+
+  const handleRadiusChange = (value) => {
+    setRadius(value);
+
+    const tmpItems = [...items];
+    setItems(
+      tmpItems.map((item) => {
+        const tmpItem = { ...item };
+        tmpItem.radius = value;
+        return tmpItem;
+      })
+    );
   };
 
-  const handleChannelChange = (colorChannel, value) => {
-    // Shorthand property names
-    setStyle({ ...style, [colorChannel]: value });
-  };
+  const handleColorChange = (newColor) => {
+    setColor(newColor);
 
-  const handlePositionChange = (position, value) => {
-    // Shorthand property names
-    setStyle({ ...style, [position]: value });
+    const tmpItems = [...items];
+    setItems(
+      tmpItems.map((item) => {
+        const tmpItem = { ...item };
+        tmpItem.color = newColor;
+        return tmpItem;
+      })
+    );
   };
-
-  const { radius, red, green, blue, x, y } = style;
 
   return (
     <div className="App">
-      <Drawing radius={radius} color={{ red, green, blue }} x={x} y={y} />
-
+      <ColorPalette color={color} onColorChange={handleColorChange} />
       <Slider
-        label="Position X"
-        value={x}
-        onValueChange={(v) => handlePositionChange("x",v)}
-      />
-
-      <Slider
-        label="Position Y"
-        value={y}
-        onValueChange={(v) => handlePositionChange("y",v)}
-      />
-
-      <Slider
+        value={radius}
+        onValueChange={handleRadiusChange}
+        min={1}
         max={50}
         label="Radius"
-        value={radius}
-        onValueChange={(v) => handleRadiusChange(v)}
       />
-      <Slider
-        max={255}
-        label="Red"
-        value={red}
-        onValueChange={(v) => handleChannelChange("red", v)}
-      />
-      <Slider
-        max={255}
-        label="Green"
-        value={green}
-        onValueChange={(v) => handleChannelChange("green", v)}
-      />
-      <Slider
-        max={255}
-        label="Blue"
-        value={blue}
-        onValueChange={(v) => handleChannelChange("blue", v)}
-      />
+
+      <Drawing items={items} />
     </div>
   );
 }
-
-export default App;
