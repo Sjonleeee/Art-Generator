@@ -1,24 +1,18 @@
-import { useState } from "react";
-
-const Amount = ({ onAmountChange }) => {
-  const [amount, setAmount] = useState(5);
-
-  const handleAmountChange = (event) => {
-    const newAmount = parseInt(event.target.value, 10);
-    setAmount(newAmount);
-    onAmountChange(newAmount);
+const Amount = ({ label, value, onValueChange, min, max }) => {
+  const handleChange = (event) => {
+    const newValue = parseInt(event.target.value);
+    onValueChange(newValue);
   };
 
   return (
-    <div>
-      <label htmlFor="amount-input">Amount: </label>
+    <div className="number-input">
+      <label>{label}</label>
       <input
-        id="amount-input"
         type="number"
-        min="1"
-        max="50"
-        value={amount}
-        onChange={handleAmountChange}
+        value={value}
+        onChange={handleChange}
+        min={min}
+        max={100}
       />
     </div>
   );
