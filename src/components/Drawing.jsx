@@ -13,7 +13,7 @@ const Drawing = ({ items, color }) => {
           item.radius / 2,
           Math.min(canvasHeight - item.radius / 2, item.y - item.radius / 2)
         );
-        
+
         const width = Math.min(canvasWidth - x, item.radius);
         const height = Math.min(canvasHeight - y, item.radius);
 
