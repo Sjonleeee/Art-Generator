@@ -64,7 +64,7 @@ export default function App() {
         onValueChange={handleNumItemsChange}
         label="Number of items"
         min={1}
-        max={20}
+        max={100}
       />
 
       <Drawing items={items} />

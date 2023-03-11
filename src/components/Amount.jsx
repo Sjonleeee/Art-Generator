@@ -12,7 +12,7 @@ const Amount = ({ label, value, onValueChange, min, max }) => {
         value={value}
         onChange={handleChange}
         min={min}
-        max={100}
+        max={max}
       />
     </div>
   );

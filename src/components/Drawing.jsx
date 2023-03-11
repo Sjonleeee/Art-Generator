@@ -1,14 +1,12 @@
 const Drawing = ({ items, color }) => {
   const canvasWidth = 100;
   const canvasHeight = 100;
+  const itemWidth = canvasWidth / items.length;
 
   return (
     <svg viewBox={`0 0 ${canvasWidth} ${canvasHeight}`}>
       {items.map((item, index) => {
-        const x = Math.max(
-          item.radius / 2,
-          Math.min(canvasWidth - item.radius / 2, 15 * index - item.radius / 2)
-        );
+        const x = itemWidth * index + itemWidth / 2 - item.radius / 2;
         const y = Math.max(
           item.radius / 2,
           Math.min(canvasHeight - item.radius / 2, item.y - item.radius / 2)
