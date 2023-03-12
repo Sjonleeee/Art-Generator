@@ -1,7 +1,7 @@
 import React from "react";
 import "../Drawing.css";
 
-const Drawing = ({ items, color }) => {
+const Drawing = ({ items, color, radius }) => {
   const canvasWidth = 800;
   const canvasHeight = 800;
   const gridSize = Math.ceil(Math.sqrt(items.length));
@@ -26,7 +26,7 @@ const Drawing = ({ items, color }) => {
             height={gridItemSize}
             fill="none"
             stroke={color}
-            strokeWidth="5"
+            strokeWidth={radius}
           />
         );
       })}

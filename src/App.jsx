@@ -30,6 +30,7 @@ export default function App() {
       })
     );
   };
+
   const handleColorChange = (newColor) => {
     setColor(newColor);
 
@@ -66,7 +67,7 @@ export default function App() {
         max={100}
       />
 
-      <Drawing items={items} color={color} />
+      <Drawing items={items} color={color} radius={radius}/>
     </div>
   );
 }
