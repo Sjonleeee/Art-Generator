@@ -1,28 +1,32 @@
+import React from "react";
+import "../Drawing.css";
+
 const Drawing = ({ items, color }) => {
-  const canvasWidth = 100;
-  const canvasHeight = 100;
-  const itemWidth = canvasWidth / items.length;
+  const canvasWidth = 800;
+  const canvasHeight = 800;
+  const gridSize = Math.ceil(Math.sqrt(items.length));
+  const gridItemSize = canvasWidth / gridSize;
+
+  const getItemPosition = (index) => {
+    const x = (index % gridSize) * gridItemSize;
+    const y = Math.floor(index / gridSize) * gridItemSize;
+    return { x, y };
+  };
 
   return (
-    <svg viewBox={`0 0 ${canvasWidth} ${canvasHeight}`}>
+    <svg viewBox={`0 0 ${canvasWidth} ${canvasHeight}`} className="Drawing">
       {items.map((item, index) => {
-        const x = itemWidth * index + itemWidth / 2 - item.radius / 2;
-        const y = Math.max(
-          item.radius / 2,
-          Math.min(canvasHeight - item.radius / 2, item.y - item.radius / 2)
-        );
-
-        const width = Math.min(canvasWidth - x, item.radius);
-        const height = Math.min(canvasHeight - y, item.radius);
-
+        const { x, y } = getItemPosition(index);
         return (
           <rect
             key={index}
             x={x}
             y={y}
-            width={width}
-            height={height}
-            fill={color}
+            width={gridItemSize}
+            height={gridItemSize}
+            fill="none"
+            stroke={color}
+            strokeWidth="5"
           />
         );
       })}

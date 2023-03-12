@@ -1,8 +1,8 @@
 import "./App.css";
 import { useState } from "react";
 import Amount from "./components/Amount";
-import Drawing from "./components/Drawing";
 import ColorPalette from "./components/Color";
+import Drawing from "./components/Drawing";
 import Slider from "./components/Slider";
 
 const generateItem = () => ({
@@ -14,7 +14,7 @@ const defaultList = new Array(5).fill().map(() => generateItem());
 
 export default function App() {
   const [radius, setRadius] = useState(10);
-  const [numItems, setNumItems] = useState(5);
+  const [numItems, setNumItems] = useState(defaultList.length);
   const [items, setItems] = useState(defaultList);
   const [color, setColor] = useState("#000000");
 
@@ -30,12 +30,6 @@ export default function App() {
       })
     );
   };
-
-  const handleNumItemsChange = (value) => {
-    setNumItems(value);
-    setItems(new Array(value).fill().map(() => generateItem()));
-  };
-
   const handleColorChange = (newColor) => {
     setColor(newColor);
 
@@ -47,6 +41,11 @@ export default function App() {
         return tmpItem;
       })
     );
+  };
+
+  const handleNumItemsChange = (value) => {
+    setNumItems(value);
+    setItems(new Array(value).fill().map(() => generateItem()));
   };
 
   return (
@@ -67,7 +66,7 @@ export default function App() {
         max={100}
       />
 
-      <Drawing items={items} />
+      <Drawing items={items} color={color} />
     </div>
   );
 }
