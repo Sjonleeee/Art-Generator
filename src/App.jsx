@@ -3,6 +3,7 @@ import { useState } from "react";
 import Amount from "./components/Amount";
 import ColorPalette from "./components/Color";
 import Drawing from "./components/Drawing";
+import RandomRotation from "./components/RandomRotation";
 import Slider from "./components/Slider";
 
 const generateItem = () => ({
@@ -20,6 +21,11 @@ export default function App() {
   const [numItems, setNumItems] = useState(defaultList.length);
   const [items, setItems] = useState(defaultList);
   const [color, setColor] = useState(COLORS[0]);
+  const [randomRotation, setRandomRotation] = useState(false);
+
+  const handleRandomRotationChange = (newState) => {
+    setRandomRotation(newState);
+  };
 
   const handleRadiusChange = (value) => {
     setRadius(value);
@@ -73,8 +79,17 @@ export default function App() {
         min={50}
         max={1000}
       />
-
-      <Drawing items={items} color={color} radius={radius} />
+      <RandomRotation
+        checked={randomRotation}
+        onRotateChange={handleRandomRotationChange}
+        items={items}
+      />
+      <Drawing
+        items={items}
+        color={color}
+        radius={radius}
+        randomRotation={randomRotation}
+      />
     </div>
   );
 }

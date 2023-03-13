@@ -1,7 +1,7 @@
 import React from "react";
 import "../Drawing.css";
 
-const Drawing = ({ items, color, radius }) => {
+const Drawing = ({ items, color, radius, randomRotation }) => {
   const canvasWidth = 80;
   const canvasHeight = 80;
   const gridSize = Math.ceil(Math.sqrt(items.length));
@@ -43,6 +43,7 @@ const Drawing = ({ items, color, radius }) => {
       {items.map((item, index) => {
         const { x, y, width, height } = getItemPosition(index);
         const randomFill = getRandomColor();
+        const rotation = randomRotation ? Math.floor(Math.random() * 360) : 0; // get a random rotation if the checkbox is checked
         return (
           <rect
             key={index}
@@ -53,6 +54,7 @@ const Drawing = ({ items, color, radius }) => {
             fill={randomFill}
             stroke={color}
             radius={-radius}
+            transform={`rotate(${rotation} ${x} ${y})`} // apply the rotation to the SVG
           />
         );
       })}

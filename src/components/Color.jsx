@@ -8,7 +8,7 @@ function ColorPalette({ colors, activeColor, onColorChange }) {
           key={color}
           style={{
             backgroundColor: color,
-            border: color === activeColor ? "2px solid black" : "none",
+            border: color === activeColor ? "1px solid black" : "none",
           }}
           onClick={() => onColorChange(color)}
         />
