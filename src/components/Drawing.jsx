@@ -15,7 +15,7 @@ const Drawing = ({ items, color, radius }) => {
     const width =
       Math.floor(Math.random() * 4 + 1) * (gridItemSize / 4) + radius * 2;
     const height =
-      Math.floor(Math.random() * 4 + 1) * (gridItemSize / 4) + radius * 2;
+      Math.floor(Math.random() * 4 + 1) * (gridItemSize / 4) + radius * 1;
 
     // Calculate the position of the rectangle within the grid
     const gridX = index % gridSize;
