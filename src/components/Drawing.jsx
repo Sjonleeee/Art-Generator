@@ -8,15 +8,35 @@ const Drawing = ({ items, color, radius }) => {
   const gridItemSize = canvasWidth / gridSize;
 
   const getItemPosition = (index) => {
-    const x = (index % gridSize) * gridItemSize;
-    const y = Math.floor(index / gridSize) * gridItemSize;
-    return { x, y };
+    const maxWidth = canvasWidth / gridSize;
+    const maxHeight = canvasHeight / gridSize;
+
+    // Calculate a random width and height for the rectangle
+    const width = Math.floor(Math.random() * (maxWidth - 10)) + 10;
+    const height = Math.floor(Math.random() * (maxHeight - 10)) + 10;
+
+    // Calculate the position of the rectangle
+    const x = (index % gridSize) * (maxWidth - width);
+    const y = Math.floor(index / gridSize) * (maxHeight - height);
+
+    return { x, y, width, height };
+  };
+
+  // Random color generator
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   };
 
   return (
     <svg viewBox={`0 0 ${canvasWidth} ${canvasHeight}`} className="Drawing">
       {items.map((item, index) => {
         const { x, y } = getItemPosition(index);
+        const randomFill = getRandomColor();
         return (
           <rect
             key={index}
@@ -24,7 +44,7 @@ const Drawing = ({ items, color, radius }) => {
             y={y}
             width={gridItemSize}
             height={gridItemSize}
-            fill="none"
+            fill={randomFill}
             stroke={color}
             strokeWidth={radius}
           />

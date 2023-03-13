@@ -10,6 +10,7 @@ const generateItem = () => ({
   radius: 5,
   color: "#000000",
 });
+
 const defaultList = new Array(5).fill().map(() => generateItem());
 
 const COLORS = ["#000000", "#FF0000", "#00FF00", "#0000FF"];
