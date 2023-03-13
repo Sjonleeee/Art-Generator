@@ -1,15 +1,20 @@
 import React from "react";
 
-const ColorPalette = ({ onColorChange, color }) => {
+function ColorPalette({ colors, activeColor, onColorChange }) {
   return (
-    <div>
-      <input
-        type="color"
-        value={color}
-        onChange={(e) => onColorChange(e.target.value)}
-      />
+    <div className="ColorPalette">
+      {colors.map((color) => (
+        <button
+          key={color}
+          style={{
+            backgroundColor: color,
+            border: color === activeColor ? "2px solid black" : "none",
+          }}
+          onClick={() => onColorChange(color)}
+        />
+      ))}
     </div>
   );
-};
+}
 
 export default ColorPalette;

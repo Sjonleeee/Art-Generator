@@ -12,11 +12,13 @@ const generateItem = () => ({
 });
 const defaultList = new Array(5).fill().map(() => generateItem());
 
+const COLORS = ["#000000", "#FF0000", "#00FF00", "#0000FF"];
+
 export default function App() {
   const [radius, setRadius] = useState(10);
   const [numItems, setNumItems] = useState(defaultList.length);
   const [items, setItems] = useState(defaultList);
-  const [color, setColor] = useState("#000000");
+  const [color, setColor] = useState(COLORS[0]);
 
   const handleRadiusChange = (value) => {
     setRadius(value);
@@ -51,7 +53,11 @@ export default function App() {
 
   return (
     <div className="App">
-      <ColorPalette color={color} onColorChange={handleColorChange} />
+      <ColorPalette
+        colors={COLORS}
+        activeColor={color}
+        onColorChange={handleColorChange}
+      />
       <Slider
         value={radius}
         onValueChange={handleRadiusChange}
@@ -67,7 +73,7 @@ export default function App() {
         max={100}
       />
 
-      <Drawing items={items} color={color} radius={radius}/>
+      <Drawing items={items} color={color} radius={radius} />
     </div>
   );
 }
