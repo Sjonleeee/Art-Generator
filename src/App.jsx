@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Amount from "./components/Amount";
 import ColorPalette from "./components/Color";
 import Drawing from "./components/Drawing";
 import RandomRotation from "./components/RandomRotation";
 import Slider from "./components/Slider";
+import Timer from "./components/Timer";
+
 import { stroke } from "./constants";
 
 import "./App.css";
@@ -16,6 +18,17 @@ const generateItem = () => ({
 const defaultList = new Array(50).fill().map(() => generateItem());
 
 export default function App() {
+  const [counter, setCounter] = useState(0);
+
+  console.log(counter);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCounter((prevCounter) => prevCounter + 1);
+    }, 3000);
+    return () => clearInterval(intervalId);
+  }, []);
+
   const [isRotated, setIsRotated] = useState(false);
   const [color, setColor] = useState(stroke.COLORS[0]);
 
@@ -77,6 +90,7 @@ export default function App() {
         items={items}
         onRotationChange={setIsRotated}
       />
+      <Timer />
       <Drawing
         items={items}
         color={color}
