@@ -69,7 +69,9 @@ export default function App() {
   };
 
   return (
+
     <div className="App">
+    <h1>Rect generator</h1>
       <ColorPalette activeColor={color} onColorChange={handleColorChange} />
       <Slider
         value={widthMultiplier}
