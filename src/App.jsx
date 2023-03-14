@@ -16,15 +16,12 @@ const generateItem = () => ({
 const defaultList = new Array(50).fill().map(() => generateItem());
 
 export default function App() {
+  const [isRotated, setIsRotated] = useState(false);
+  const [color, setColor] = useState(stroke.COLORS[0]);
+
   const [widthMultiplier, setWidthMultiplier] = useState(2);
   const [numItems, setNumItems] = useState(defaultList.length);
   const [items, setItems] = useState(defaultList);
-  const [color, setColor] = useState(stroke.COLORS[0]);
-  const [randomRotation, setRandomRotation] = useState(false);
-
-  const handleRandomRotationChange = (newState) => {
-    setRandomRotation(newState);
-  };
 
   const handleWidthChange = (value) => {
     setWidthMultiplier(value);
@@ -41,29 +38,26 @@ export default function App() {
 
   const handleColorChange = (newColor) => {
     setColor(newColor);
-
-    const tmpItems = [...items];
-    setItems(
-      tmpItems.map((item) => {
-        const tmpItem = { ...item };
-        tmpItem.color = newColor;
-        return tmpItem;
-      })
-    );
+    setItems((prevItems) => {
+      const mappedWithNewColors = prevItems.map((item) => {
+        const newItem = { ...item, color: newColor };
+        return newItem;
+      });
+      return mappedWithNewColors;
+    });
   };
 
   const handleNumItemsChange = (value) => {
     setNumItems(value);
-    setItems(new Array(value).fill().map(() => generateItem()));
+    const generated = new Array(value).fill();
+    const mapped = generated.map(() => generateItem());
+
+    setItems(mapped);
   };
 
   return (
     <div className="App">
-      <ColorPalette
-        colors={stroke.COLORS}
-        activeColor={color}
-        onColorChange={handleColorChange}
-      />
+      <ColorPalette activeColor={color} onColorChange={handleColorChange} />
       <Slider
         value={widthMultiplier}
         onValueChange={handleWidthChange}
@@ -79,15 +73,15 @@ export default function App() {
         max={1000}
       />
       <RandomRotation
-        checked={randomRotation}
-        onRotateChange={handleRandomRotationChange}
+        isRotated={isRotated}
         items={items}
+        onRotationChange={setIsRotated}
       />
       <Drawing
         items={items}
         color={color}
         widthMultiplier={widthMultiplier}
-        randomRotation={randomRotation}
+        randomRotation={isRotated}
       />
     </div>
   );

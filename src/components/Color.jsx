@@ -1,9 +1,9 @@
-import React from "react";
+import { stroke } from "../constants";
 
-function ColorPalette({ colors, onColorChange }) {
+const ColorPalette = ({ onColorChange }) => {
   return (
     <div className="ColorPalette">
-      {colors.map((color) => (
+      {stroke.COLORS.map((color) => (
         <button
           key={color}
           style={{
@@ -14,6 +14,6 @@ function ColorPalette({ colors, onColorChange }) {
       ))}
     </div>
   );
-}
+};
 
 export default ColorPalette;
