@@ -13,10 +13,10 @@ const Drawing = ({ items, color, widthMultiplier, randomRotation }) => {
   const getItemPosition = (index) => {
     // Calculate a random width and height for the rectangle
     const width =
-      Math.floor(Math.random() * 4 + 1) * (gridItemSize / 4) +
+      Math.floor(Math.random() * 4 + 2) * (gridItemSize / 20) +
       gridItemSize * widthMultiplier;
     const height =
-      Math.floor(Math.random() * 4 + 1) * (gridItemSize / 4) +
+      Math.floor(Math.random() * 4 + 2) * (gridItemSize / 4) +
       (gridItemSize * widthMultiplier) / 2;
 
     // Calculate the position of the rectangle within the grid
