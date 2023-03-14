@@ -8,8 +8,6 @@ import Slider from "./components/Slider";
 
 const generateItem = () => ({
   y: Math.random() * 50,
-  radius: 2,
-  color: "#000000",
 });
 
 const defaultList = new Array(50).fill().map(() => generateItem());
@@ -17,7 +15,7 @@ const defaultList = new Array(50).fill().map(() => generateItem());
 const COLORS = ["#000000", "#FF0000", "#00FF00", "#0000FF"];
 
 export default function App() {
-  const [radius, setRadius] = useState(2);
+  const [widthMultiplier, setWidthMultiplier] = useState(0);
   const [numItems, setNumItems] = useState(defaultList.length);
   const [items, setItems] = useState(defaultList);
   const [color, setColor] = useState(COLORS[0]);
@@ -27,14 +25,14 @@ export default function App() {
     setRandomRotation(newState);
   };
 
-  const handleRadiusChange = (value) => {
-    setRadius(value);
+  const handleWidthChange = (value) => {
+    setWidthMultiplier(value);
 
     const tmpItems = [...items];
     setItems(
       tmpItems.map((item) => {
         const tmpItem = { ...item };
-        tmpItem.radius = value;
+        tmpItem.width = value; 
         return tmpItem;
       })
     );
@@ -66,11 +64,11 @@ export default function App() {
         onColorChange={handleColorChange}
       />
       <Slider
-        value={radius}
-        onValueChange={handleRadiusChange}
-        min={2}
-        max={20}
-        label="Radius"
+        value={widthMultiplier}
+        onValueChange={handleWidthChange}
+        min={0}
+        max={10}
+        label="Rect width"
       />
       <Amount
         value={numItems}
@@ -87,7 +85,7 @@ export default function App() {
       <Drawing
         items={items}
         color={color}
-        radius={radius}
+        widthMultiplier={widthMultiplier}
         randomRotation={randomRotation}
       />
     </div>
